@@ -18,6 +18,8 @@ public class Holgersson {
 
 	public static void main(String[] args) throws FileNotFoundException {
 
+		long t0 = System.nanoTime();
+
 		// skapa och fyll en mängd med ord som ska skippas.
 		Scanner scan = new Scanner(new File("undantagsord.txt"));
 		Set<String> stopwords = new HashSet<String>();
@@ -30,6 +32,7 @@ public class Holgersson {
 		// skapa samtliga Textprocessors
 		List<TextProcessor> processors = new LinkedList<TextProcessor>();
 		processors.add(new SingleWordCounter("nils"));
+		processors.add(new SingleWordCounter("norge"));
 		processors.add(new MultiWordCounter(REGIONS));
 		processors.add(new GeneralWordCounter(stopwords));
 
@@ -49,5 +52,8 @@ public class Holgersson {
 		for (TextProcessor tp : processors) {
 			tp.report();
 		}
+
+		long t1 = System.nanoTime();
+		System.out.println((t1-t0)/1000000); 
 	}
 }
